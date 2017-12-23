@@ -63,11 +63,12 @@ protected ArrayList<Hive> doInBackground(ArrayList<Hive>... params) {
         try {
 
      //   URL url = new URL("http://"+ SessionManager.ADDRESS +"/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
-         URL url = new URL("http://rihabbeji.0fees.us/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
+            //"+one.current_user.getId_user()+"
+         URL url = new URL(("http://pimcom.000webhostapp.com/pim/AllHivesByUser.php?user=1").trim());
                 HttpURLConnection conn = (HttpURLConnection) url
         .openConnection();
-        conn.setReadTimeout(10000 /* milliseconds */);
-        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setReadTimeout(100000 /* milliseconds */);
+        conn.setConnectTimeout(150000 /* milliseconds */);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
         // Starts the query

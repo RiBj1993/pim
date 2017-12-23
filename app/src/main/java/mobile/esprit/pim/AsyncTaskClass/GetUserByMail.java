@@ -53,11 +53,11 @@ public class GetUserByMail extends AsyncTask<User, String, User> {
 
         try {
          //   URL url = new URL("http://" + SessionManager.ADDRESS + "/pim/GetUserByMail.php?mail=" + mail);
-            URL url = new URL("http://rihabbeji.0fees.us/pim/GetUserByMail.php?mail=" + mail);
+            URL url = new URL("http://pimcom.000webhostapp.com/pim/GetUserByMail.php?mail=" + mail);
             HttpURLConnection conn = (HttpURLConnection) url
                     .openConnection();
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setReadTimeout(1000 /* milliseconds */);
+            conn.setConnectTimeout(1500/* milliseconds */);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             // Starts the query

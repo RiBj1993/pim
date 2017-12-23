@@ -145,7 +145,7 @@ public class one  extends WoWoActivity {
 //    https://supportindeed.com/phpMyAdmin4/db_structure.php?server=1&db=2558430_pim&token=faa2e2e983d0d68411be7bb67b431f90
  /*AsyncTask checkLoginTask = new CheckLogin().execute("http://" + SessionManager.ADDRESS + "/pim/checkLogin.php?" + "mail=" + identityField.getText() + "&login_in=" + passwordField.getText());
                  */   //    http://rihabbeji.0fees.us
- AsyncTask checkLoginTask = new CheckLogin().execute("http://rihabbeji.0fees.us/pim/checkLogin.php?" + "mail=" + identityField.getText() + "&login_in=" + passwordField.getText());
+ AsyncTask checkLoginTask = new CheckLogin().execute(("http://pimcom.000webhostapp.com/pim/checkLogin.php?mail=" + identityField.getText() + "&login_in=" + passwordField.getText()).trim());
                         checkLoginTask.get();
                         check = CheckLogin.response;
                         System.out.println(check + 'r');

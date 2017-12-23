@@ -45,21 +45,26 @@ public class nahla extends AppCompatActivity {
         if (b != null)
             value = b.getInt("key");
         hive = new Hive();
-       hive = MainActivity.hives.get(value);
-        this.runOnUiThread(new Runnable() {
+      /*  this.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(getApplicationContext(), (int) MainActivity.hives.get(value).getTemperature(), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         tempview = (TextView) findViewById(R.id.tv_cuvvrrent_temp);
         textupdate = (TextView) findViewById(R.id.tv_last_updated);
-         tempview.setText(MainActivity. hives.get(value).getTemperature() + "°C");
+
+
+
+
+        System.out.println("pk^k"+MainActivity.hives.get(value).getTemperature() );
+        tempview.setText(MainActivity.hives.get(value).getTemperature() + "°C");
         textupdate.setText("Ruche N°" + MainActivity.hives.get(value).getReference() + "");
 
-
-        mExplosionField = ExplosionField.attach2Window(this);
+                mExplosionField = ExplosionField.attach2Window(this);
         addListener(findViewById(R.id.root));
+
+
     }
 
 

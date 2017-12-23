@@ -25,8 +25,8 @@ public class AddHives {
       /*  String url = "http://" + SessionManager.ADDRESS + "/rihab_hive/api/add_hive.php?id_user=" + one.current_user.getId_user() + "&ref=" + e.getReference() +
                 "&ip=" + e.getIp() + "&lat=0&long=0";*/
 
-        String url = "http://rihabbeji.0fees.us" + "/rihab_hive/api/add_hive.php?id_user=" + one.current_user.getId_user() + "&ref=" + e.getReference() +
-                "&ip=" + e.getIp() + "&lat=0&long=0";
+        String url = ("http://pimcom.000webhostapp.com/rihab_hive/api/add_hive.php?id_user=1&ref=" + e.getReference() +
+                "&ip=" + e.getIp() + "&lat=0&long=0").trim();
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
