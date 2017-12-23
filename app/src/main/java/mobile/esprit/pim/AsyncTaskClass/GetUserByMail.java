@@ -52,7 +52,8 @@ public class GetUserByMail extends AsyncTask<User, String, User> {
         System.out.println("hives");
 
         try {
-            URL url = new URL("http://" + SessionManager.ADDRESS + "/pim/GetUserByMail.php?mail=" + mail);
+         //   URL url = new URL("http://" + SessionManager.ADDRESS + "/pim/GetUserByMail.php?mail=" + mail);
+            URL url = new URL("http://rihabbeji.0fees.us/pim/GetUserByMail.php?mail=" + mail);
             HttpURLConnection conn = (HttpURLConnection) url
                     .openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);

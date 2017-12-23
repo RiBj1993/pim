@@ -12,7 +12,7 @@ import mobile.esprit.pim.wowview.one;
 
 public class SessionManager {
 
-    public static final String ADDRESS = "192.168.1.4";
+    public static final String ADDRESS = "192.168.1.10";
     public static final String ADDRESSCam = ADDRESS + ":8080";
     public static String temperatureNotif;
     public static String ReferenceNotif;

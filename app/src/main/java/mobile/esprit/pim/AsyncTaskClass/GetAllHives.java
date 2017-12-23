@@ -65,7 +65,10 @@ public class GetAllHives extends AsyncTask<ArrayList<Hive>, String, ArrayList<Hi
         try {
             System.out.println("hives");
             hives = new ArrayList<Hive>();
-            URL url = new URL("http://" + SessionManager.ADDRESS + "/pim/AllHivesByUser.php?user=" + one.current_user.getId_user());
+          //  URL url = new URL("http://" + SessionManager.ADDRESS + "/pim/AllHivesByUser.php?user=" + one.current_user.getId_user());
+            URL url = new URL("http://rihabbeji.0fees.us/pim/AllHivesByUser.php?user=" + one.current_user.getId_user());
+
+
             HttpURLConnection conn = (HttpURLConnection) url
                     .openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);

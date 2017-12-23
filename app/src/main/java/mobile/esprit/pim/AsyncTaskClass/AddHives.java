@@ -22,7 +22,10 @@ public class AddHives {
 
         RequestQueue queue = Volley.newRequestQueue(c);
 
-        String url = "http://" + SessionManager.ADDRESS + "/rihab_hive/api/add_hive.php?id_user=" + one.current_user.getId_user() + "&ref=" + e.getReference() +
+      /*  String url = "http://" + SessionManager.ADDRESS + "/rihab_hive/api/add_hive.php?id_user=" + one.current_user.getId_user() + "&ref=" + e.getReference() +
+                "&ip=" + e.getIp() + "&lat=0&long=0";*/
+
+        String url = "http://rihabbeji.0fees.us" + "/rihab_hive/api/add_hive.php?id_user=" + one.current_user.getId_user() + "&ref=" + e.getReference() +
                 "&ip=" + e.getIp() + "&lat=0&long=0";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

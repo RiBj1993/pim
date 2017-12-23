@@ -62,8 +62,9 @@ protected ArrayList<Hive> doInBackground(ArrayList<Hive>... params) {
         hives = new ArrayList<Hive>();
         try {
 
-        URL url = new URL("http://"+ SessionManager.ADDRESS +"/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
-        HttpURLConnection conn = (HttpURLConnection) url
+     //   URL url = new URL("http://"+ SessionManager.ADDRESS +"/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
+         URL url = new URL("http://rihabbeji.0fees.us/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
+                HttpURLConnection conn = (HttpURLConnection) url
         .openConnection();
         conn.setReadTimeout(10000 /* milliseconds */);
         conn.setConnectTimeout(15000 /* milliseconds */);
