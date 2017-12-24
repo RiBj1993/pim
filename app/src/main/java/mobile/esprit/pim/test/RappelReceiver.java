@@ -33,9 +33,8 @@ public class RappelReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        Notification notification = builder.setContentTitle("Alerte Ruche")
-                .setContentText("la temperature de la ruche " + SessionManager.ReferenceNotif + " a atteint\n un niveau critque de "
-                        + SessionManager.temperatureNotif)
+        Notification notification = builder.setContentTitle("Alerte Ruche "+ SessionManager.ReferenceNotif )
+                .setContentText("tempreture n est pas stable"+ SessionManager.temperatureNotif)
                 .setTicker(" temperature tres elever ruch Alert!")
                 .setSmallIcon(R.drawable.bee)
                 .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
