@@ -42,25 +42,36 @@ public class nahla extends AppCompatActivity {
         setContentView(R.layout.activity_nahla);
         Bundle b = getIntent().getExtras();
         value = -1; // or other values
+       /* Set<Thread> setOfThread = Thread.getAllStackTraces().keySet();
+        for(Thread thread : setOfThread){
+                 thread.interrupt();
+
+        } */
+
         if (b != null)
             value = b.getInt("key");
         hive = new Hive();
-      /*  this.runOnUiThread(new Runnable() {
+       this.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(getApplicationContext(), (int) MainActivity.hives.get(value).getTemperature(), Toast.LENGTH_LONG).show();
             }
-        });*/
-
+        });
         tempview = (TextView) findViewById(R.id.tv_cuvvrrent_temp);
         textupdate = (TextView) findViewById(R.id.tv_last_updated);
 
 
 
 
-        System.out.println("pk^k"+MainActivity.hives.get(value).getTemperature() );
+     System.out.println("pk^k"+MainActivity.hives.get(value).getTemperature() );
         tempview.setText(MainActivity.hives.get(value).getTemperature() + "°C");
         textupdate.setText("Ruche N°" + MainActivity.hives.get(value).getReference() + "");
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tempview.setText(MainActivity.hives.get(value).getTemperature() + "°C");
+                textupdate.setText("Ruche N°" + MainActivity.hives.get(value).getReference() + "");            }
+        },500);
                 mExplosionField = ExplosionField.attach2Window(this);
         addListener(findViewById(R.id.root));
 

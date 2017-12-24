@@ -64,7 +64,7 @@ protected ArrayList<Hive> doInBackground(ArrayList<Hive>... params) {
 
      //   URL url = new URL("http://"+ SessionManager.ADDRESS +"/pim/AllHivesByUser.php?user="+ one.current_user.getId_user());
             //"+one.current_user.getId_user()+"
-         URL url = new URL(("http://pimcom.000webhostapp.com/pim/AllHivesByUser.php?user=1").trim());
+         URL url = new URL(("http://pimcom.000webhostapp.com/pim/AllHivesByUser.php?user="+ one.current_user.getId_user()).trim());
                 HttpURLConnection conn = (HttpURLConnection) url
         .openConnection();
         conn.setReadTimeout(100000 /* milliseconds */);

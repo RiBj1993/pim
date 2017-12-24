@@ -199,12 +199,12 @@ public class one  extends WoWoActivity {
     }
     public void GetCurrentUser(){
         System.out.println("ppppppp" + shpr.getString("login", "a"));
-        AsyncTask userasync = new GetUserByMail(getBaseContext(), shpr.getString("login","a")).execute();
-
+        GetUserByMail GetUserByMail = new GetUserByMail(getApplicationContext(), shpr.getString("login","a"));
+        GetUserByMail.execute();
         try {
-            userasync.get();
-            current_user = GetUserByMail.user;
-            System.out.println("user:"+current_user);
+            GetUserByMail.get();
+current_user=GetUserByMail.user;
+            System.out.println("user:"+current_user );
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
