@@ -2,7 +2,7 @@ package mobile.esprit.pim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import mobile.esprit.pim.R;
 public class about extends AppCompatActivity {
 
     @Override

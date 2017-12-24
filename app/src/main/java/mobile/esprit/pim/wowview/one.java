@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -44,6 +45,7 @@ import mobile.esprit.pim.AsyncTaskClass.GetUserByMail;
 import mobile.esprit.pim.Entities.User;
 import mobile.esprit.pim.R;
 import mobile.esprit.pim.USER.SessionManager;
+import mobile.esprit.pim.about;
 
 /**
  * Created by chicago on 18/12/2017.
@@ -57,7 +59,7 @@ public class one  extends WoWoActivity {
     private View loginLayout;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
-    private Button btnLogin;
+    private Button btnLogin,btnabout;
     private CheckBox saveLoginCheckBox;
 
 
@@ -111,11 +113,12 @@ public class one  extends WoWoActivity {
         identityField = (EditText) findViewById(R.id.username);
         passwordField = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.button);
+        btnabout= (Button) findViewById(R.id.buttonici);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         shpr = this.getSharedPreferences("connexion", MODE_PRIVATE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
+btnabout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.buttonbig));
 
         if (isOnline()) {
             if (!(shpr.getString("login", "a").equalsIgnoreCase("a") && shpr.getString("mdp", "b").equalsIgnoreCase("b"))) {
@@ -133,6 +136,24 @@ public class one  extends WoWoActivity {
             InternetAlert();
 
         }
+
+btnabout.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+
+
+                    Intent i = new Intent(getApplicationContext(), about.class);
+                    startActivity(i);
+                    //finish();
+
+
+
+
+
+    }
+
+});
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

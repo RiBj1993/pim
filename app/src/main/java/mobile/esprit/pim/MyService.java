@@ -64,7 +64,7 @@ public class MyService extends Service {
 
 
                                 String tittle="attetion";
-                                String subject="temperature tres elevee";
+                                String subject="temperature>>>25 ";
                                 String body="consultee la ruche ";
 
                                 notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
