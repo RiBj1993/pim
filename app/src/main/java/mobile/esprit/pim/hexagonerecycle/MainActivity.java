@@ -403,16 +403,44 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
     private void startActivityLollipop(View view, Intent intent) {
         intent.setClass(this, DetailActivityL.class);
         ImageView hero = (ImageView) ((View) view.getParent()).findViewById(R.id.photo);
-        ((ViewGroup) hero.getParent()).setTransitionGroup(false);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            // Show the Up button in the action bar.
+            ((ViewGroup) hero.getParent()).setTransitionGroup(false);
+            sPhotoCache.put(intent.getIntExtra("photo", -1),
+                    ((BitmapDrawable) hero.getDrawable()).getBitmap());
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(this, hero, "photo_hero");
+            startActivity(intent, options.toBundle());
 
-        sPhotoCache.put(intent.getIntExtra("photo", -1),
-                ((BitmapDrawable) hero.getDrawable()).getBitmap());
+        }
+        else{
 
-        ActivityOptions options =
-                ActivityOptions.makeSceneTransitionAnimation(this, hero, "photo_hero");
-        startActivity(intent, options.toBundle());
+            int[] screenLocation = new int[2];
+            view.getLocationOnScreen(screenLocation);
+            intent.
+                    putExtra("left", screenLocation[0]).
+                    putExtra("top", screenLocation[1]).
+                    putExtra("width", view.getWidth()).
+                    putExtra("height", view.getHeight());
+
+            startActivity(intent);
+
+            // Override transitions: we don't want the normal window animation in addition to our
+            // custom one
+            overridePendingTransition(0, 0);
+
+            // The detail activity handles the enter and exit animations. Both animations involve a
+            // ghost view animating into its final or initial position respectively. Since the detail
+            // activity starts translucent, the clicked view needs to be invisible in order for the
+            // animation to look correct.
+            ViewPropertyAnimator.animate(findViewById(R.id.photo)).alpha(0.0f);
+        }
+
+
+
+
     }
-
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private void startActivityGingerBread(View view, Intent intent, int resId) {
         int[] screenLocation = new int[2];
         view.getLocationOnScreen(screenLocation);
@@ -434,6 +462,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
         // animation to look correct.
         ViewPropertyAnimator.animate(findViewById(resId)).alpha(0.0f);
     }
+
 
     public void notifayed() {
 
