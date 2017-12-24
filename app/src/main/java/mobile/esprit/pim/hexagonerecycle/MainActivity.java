@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
         bmb.setBoomEnum(BoomEnum.HORIZONTAL_THROW_1);
 
         hives = new ArrayList<Hive>();
-        //loadViews();
+       // loadViews();
         StartTimer();
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -247,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
             }
         });
 
-
         callAsynchronousTask();
         notifayed();
 
@@ -259,20 +258,28 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
 
   public   void StartTimer(){
         handler = new Handler();
-        handlerTask = new Runnable()
+      final boolean stop = false;
+
+      handlerTask = new Runnable()
         {
             @Override
             public void run() {
                 // do something
                // textView.setText("some text");
                 loadViews();
+
+
                 handler.postDelayed(handlerTask, 1000);
             }
+
+
 
 
         };
         handlerTask.run();
     }
+
+
 
     private void loadViews() {
         LinkedList p = new LinkedList<String>();
@@ -336,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
     @Override
     protected void onResume() {
         super.onResume();
+
         if (!Utils.hasLollipop()) {
             // The activity transition animates the clicked image alpha to zero, reset that value when
             // you come back to this activity
