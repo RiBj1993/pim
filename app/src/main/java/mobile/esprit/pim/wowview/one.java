@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -58,7 +61,6 @@ public class one  extends WoWoActivity {
     private CheckBox saveLoginCheckBox;
 
 
-
     private EditText identityField, passwordField;
     private Button loginButton;
     private CheckBox rememberLoginBox;
@@ -66,6 +68,7 @@ public class one  extends WoWoActivity {
 
     public static User current_user;
     public static SharedPreferences shpr;
+
     @Override
     protected int contentViewRes() {
         return R.layout.one;
@@ -145,7 +148,7 @@ public class one  extends WoWoActivity {
 //    https://supportindeed.com/phpMyAdmin4/db_structure.php?server=1&db=2558430_pim&token=faa2e2e983d0d68411be7bb67b431f90
  /*AsyncTask checkLoginTask = new CheckLogin().execute("http://" + SessionManager.ADDRESS + "/pim/checkLogin.php?" + "mail=" + identityField.getText() + "&login_in=" + passwordField.getText());
                  */   //    http://rihabbeji.0fees.us
- AsyncTask checkLoginTask = new CheckLogin().execute(("http://pimcom.000webhostapp.com/pim/checkLogin.php?mail=" + identityField.getText() + "&login_in=" + passwordField.getText()).trim());
+                        AsyncTask checkLoginTask = new CheckLogin().execute(("http://pimcom.000webhostapp.com/pim/checkLogin.php?mail=" + identityField.getText() + "&login_in=" + passwordField.getText()).trim());
                         checkLoginTask.get();
                         check = CheckLogin.response;
                         System.out.println(check + 'r');
@@ -178,6 +181,7 @@ public class one  extends WoWoActivity {
 
         });
     }
+
     public void InternetAlert() {
         new AlertDialog.Builder(this)
                 .setTitle("Etat de connexion")
@@ -197,14 +201,15 @@ public class one  extends WoWoActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-    public void GetCurrentUser(){
+
+    public void GetCurrentUser() {
         System.out.println("ppppppp" + shpr.getString("login", "a"));
-        GetUserByMail GetUserByMail = new GetUserByMail(getApplicationContext(), shpr.getString("login","a"));
+        GetUserByMail GetUserByMail = new GetUserByMail(getApplicationContext(), shpr.getString("login", "a"));
         GetUserByMail.execute();
         try {
             GetUserByMail.get();
-current_user=GetUserByMail.user;
-            System.out.println("user:"+current_user );
+            current_user = GetUserByMail.user;
+            System.out.println("user:" + current_user);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -212,6 +217,7 @@ current_user=GetUserByMail.user;
         }
 
     }
+
     public boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -219,8 +225,6 @@ current_user=GetUserByMail.user;
         return cm.getActiveNetworkInfo() != null &&
                 cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
-
-
 
 
     @Override
@@ -401,9 +405,6 @@ current_user=GetUserByMail.user;
 
         //button
     }
-
-
-
 
 }
 

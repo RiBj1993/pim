@@ -37,6 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
+            android:singleLine="true"
+
+            android:imeOptions="actionDone"
+            android:text="mobile@yahoo.fr"
             android:hint="lOGIN"/>
 
         <EditText
@@ -45,6 +49,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+
+            android:text="mobile"
             android:hint="MOT DE PASSE"/>
         <CheckBox
             android:id="@+id/rememberLoginBox"
@@ -58,7 +66,7 @@
             android:id="@+id/button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Sign In"
+            android:text="se connecter"
             android:layout_marginBottom="20dp"
             android:layout_gravity="bottom|center_horizontal"/>
 
