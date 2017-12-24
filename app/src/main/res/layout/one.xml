@@ -51,7 +51,7 @@
             android:layout_marginTop="100dp"
             android:imeOptions="actionDone"
             android:singleLine="true"
-
+android:password="@bool/default_bmb_autoHide"
             android:text="mobile"
             android:hint="MOT DE PASSE"/>
         <CheckBox
