@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Outline;
@@ -20,6 +21,7 @@ import android.view.WindowInsets;
 import android.widget.ImageView;
 
 import mobile.esprit.pim.R;
+import mobile.esprit.pim.USER.SessionManager;
 import mobile.esprit.pim.ui.TransitionListener;
 
 
@@ -148,5 +150,17 @@ public class DetailActivityL extends AbstractDetailActivity {
         public void onAnimationUpdate(ValueAnimator valueAnimator) {
             mHero.getDrawable().setTint((Integer) valueAnimator.getAnimatedValue());
         }
+    }
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        //  handler.removeCallbacksAndMessages(null);
+        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+        Intent intent = new Intent(getApplicationContext(), mobile.esprit.pim.hexagonerecycle.MainActivity.class);
+        startActivity(intent);
+
+        finish();;
+
+
     }
 }

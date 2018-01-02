@@ -15,12 +15,8 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <service
-        android:name=".PlayAudio"
-        android:enabled="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+ 
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -32,10 +28,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyA9Qlhac8D8AFnZtzEpVc65NShJL0HvqrY" />
-
+            android:value="AIzaSyAnkkbunXZHvOBJpN-D70QSsDr6vwWOr_0" />
         <receiver android:name=".test.RappelReceiver">
             <intent-filter>
                 <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
@@ -52,9 +48,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".hexagonerecycle.AjouterRucheActivity" />
-        <activity
-            android:name=".hexagonerecycle.nahla"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity android:name=".detailcour.MainActivityDetail" />
         <activity android:name=".googleplus.MainActivity" />
         <activity
@@ -79,16 +72,16 @@
         <activity
             android:name=".wowview.one"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-
-        </activity>
-        <activity
-            android:name=".about"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".about"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+
         </activity>    </application>
 
 </manifest>

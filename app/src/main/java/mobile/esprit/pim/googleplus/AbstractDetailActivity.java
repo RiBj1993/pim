@@ -54,7 +54,7 @@ public abstract class AbstractDetailActivity extends FragmentActivity {
     private ExplosionField mExplosionField;
     private TextView tempview, textupdate;
     private Hive hive;
-
+    int value = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public abstract class AbstractDetailActivity extends FragmentActivity {
 
         setupEnterAnimation();
         Bundle b = getIntent().getExtras();
-        int value = -1; // or other values
+        // or other values
         if (b != null)
             value = b.getInt("key");
         hive = new Hive();
@@ -135,8 +135,8 @@ public abstract class AbstractDetailActivity extends FragmentActivity {
                                             intent.setClass(v.getContext(), DetailActivity.class);
 
 
-                                            intent.putExtra("lat", 37.6329946)
-                                                    .putExtra("lng", -122.4938344)
+                                            intent.putExtra("lat", mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude())
+                                                    .putExtra("lng", mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude())
                                                     .putExtra("zoom", 14.0f)
                                                     .putExtra("title", "Pacifica Pier")
                                                     .putExtra("description", getResources().getText(R.string.lorem))
@@ -188,9 +188,12 @@ public abstract class AbstractDetailActivity extends FragmentActivity {
 
     private void setupMap() {
         final GoogleMap map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-
-        double lat = getIntent().getDoubleExtra("lat", 37.6329946);
-        double lng = getIntent().getDoubleExtra("lng", -122.4938344);
+        Bundle b = getIntent().getExtras();
+        // or other values
+        if (b != null)
+        { value = b.getInt("key");
+        double lat = getIntent().getDoubleExtra("lat",  mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude());
+        double lng = getIntent().getDoubleExtra("lng", mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude());
         float zoom = getIntent().getFloatExtra("zoom", 15);
 
         LatLng position = new LatLng(lat, lng);
@@ -209,7 +212,7 @@ public abstract class AbstractDetailActivity extends FragmentActivity {
                     }
                 });
             }
-        });
+        });}
     }
 
     public abstract void mapLoaded(Bitmap bitmap);

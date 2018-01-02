@@ -16,6 +16,7 @@
 
 package mobile.esprit.pim.googleplus;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -35,6 +36,7 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import mobile.esprit.pim.R;
+import mobile.esprit.pim.USER.SessionManager;
 import mobile.esprit.pim.ui.*;
 
 
@@ -255,6 +257,18 @@ public class DetailActivity extends AbstractDetailActivity {
         // Override transitions: we don't want the normal window animation in addition to our
         // custom one
         overridePendingTransition(0, 0);
+    }
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+      //  handler.removeCallbacksAndMessages(null);
+        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+
+        Intent intent = new Intent(getApplicationContext(), mobile.esprit.pim.hexagonerecycle.MainActivity.class);
+        startActivity(intent);
+         finish();;
+
+
     }
 
 }

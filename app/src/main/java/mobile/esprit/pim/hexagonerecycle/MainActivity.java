@@ -65,6 +65,8 @@ import mobile.esprit.pim.wowview.one;
 public class MainActivity extends AppCompatActivity implements ImagesAdapter.ViewHolderClicks {
     public static SparseArray<Bitmap> sPhotoCache = new SparseArray<Bitmap>(4);
     public static ArrayList<Hive> hives;
+    private Handler handler;
+    private Runnable handlerTask;
 
 
     private BoomMenuButton bmb;
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+
                         Intent i = new Intent(getApplicationContext(), AjouterRucheActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(i);
@@ -105,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
 
 
                         Intent i = new Intent(getApplicationContext(), ActivityCart.class);
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
 
                         Intent i = new Intent(getApplicationContext(), WebViewActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
 
                         Intent i = new Intent(getApplicationContext(), ListDemoActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -156,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+
                         SharedPreferences shpr = getApplicationContext().getSharedPreferences("connexion", MODE_PRIVATE);
                         SharedPreferences.Editor editor = shpr.edit();
                         editor.putString("login", "a");
@@ -178,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 .listener(new OnBMClickListener() {
                     @Override
                     public void onBoomButtonClick(int index) {
-
+                        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
                         if (SessionManager.mp != null) {
                             SessionManager.mp.stop();
                             SessionManager. mp.release();
@@ -253,8 +260,15 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
 
 
     }
-    private Handler handler;
-    private Runnable handlerTask;
+
+    @Override
+    protected void onDestroy(){
+
+        super.onDestroy();
+
+        handler.removeCallbacksAndMessages(null);
+    }
+
 
   public   void StartTimer(){
         handler = new Handler();
@@ -376,20 +390,21 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
 
 
         int resId = 0;
-
+        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
         Intent intent = new Intent();
+        Bundle b = new Bundle();
+
+        b.putInt("key", position); //Your id
+        intent.putExtras(b);
+
         intent.setClass(this, DetailActivity.class);
-        intent.putExtra("lat", 37.6329946)
-                .putExtra("lng", -122.4938344)
+        intent.putExtra("lat",hives.get(position).getLatitude()/*37.6329946*/)
+                .putExtra("lng", hives.get(position).getLongitude()/*-122.4938344*/)
                 .putExtra("zoom", 14.0f)
                 .putExtra("title", "Pacifica Pier")
                 .putExtra("description", getResources().getText(R.string.lorem))
                 .putExtra("photo", R.drawable.photo4);
         resId = R.id.card_photo_11;
-        Bundle b = new Bundle();
-
-        b.putInt("key", position); //Your id
-        intent.putExtras(b);
 
 
         if (Utils.hasLollipop()) {
@@ -424,7 +439,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                     putExtra("height", view.getHeight());
 
             startActivity(intent);
-
+          finish();
             // Override transitions: we don't want the normal window animation in addition to our
             // custom one
             overridePendingTransition(0, 0);
@@ -451,7 +466,7 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 putExtra("height", view.getHeight());
 
         startActivity(intent);
-
+finish();
         // Override transitions: we don't want the normal window animation in addition to our
         // custom one
         overridePendingTransition(0, 0);
@@ -547,4 +562,5 @@ public class MainActivity extends AppCompatActivity implements ImagesAdapter.Vie
                 cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
-}
+
+   }

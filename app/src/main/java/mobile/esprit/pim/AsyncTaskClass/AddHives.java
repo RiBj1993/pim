@@ -26,7 +26,7 @@ public class AddHives {
                 "&ip=" + e.getIp() + "&lat=0&long=0";*/
 
         String url = ("http://pimcom.000webhostapp.com/rihab_hive/api/add_hive.php?id_user="+one.current_user.getId_user()+"&ref=" + e.getReference() +
-                "&ip=" + e.getIp() + "&lat=0&long=0").trim();
+                "&ip=" + e.getIp() + "&lat=37.6329946*&long=-122.4938344").trim();
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

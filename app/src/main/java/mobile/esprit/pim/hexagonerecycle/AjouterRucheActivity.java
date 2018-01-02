@@ -2,6 +2,7 @@ package mobile.esprit.pim.hexagonerecycle;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import mobile.esprit.pim.AsyncTaskClass.AddHives;
 import mobile.esprit.pim.Entities.Hive;
 import mobile.esprit.pim.R;
+import mobile.esprit.pim.USER.SessionManager;
 
 public class AjouterRucheActivity extends Activity {
 
@@ -26,7 +28,7 @@ public class AjouterRucheActivity extends Activity {
     private EditText  ipField;
     private Button    registerButton;
     private Button btnRegister;
-     MediaPlayer mp ;
+   //  MediaPlayer mp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +36,20 @@ public class AjouterRucheActivity extends Activity {
         setContentView(R.layout.activity_registration);
         initUI();
         btnRegister = (Button) findViewById(R.id.btn_register);
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.audiotest11);
+        SessionManager. mp = MediaPlayer.create(getApplicationContext(), R.raw.audiotest11);
         btnRegister.startAnimation(AnimationUtils.loadAnimation(this, R.anim.buttonbig));
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mp.isPlaying()) {
-                    mp.pause();
+                if ( SessionManager.mp.isPlaying()) {
+                    SessionManager.mp.pause();
                     // btnRegister.setBackgroundResource(R.drawable.speaker);
                     btnRegister.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonbig));
 
                 } else {
-                    mp.start();
+                    SessionManager. mp.start();
                     // btnRegister.setBackgroundResource(R.drawable.high);
                     btnRegister.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.buttonbig));
 
@@ -136,5 +138,18 @@ public class AjouterRucheActivity extends Activity {
     private void showToast( String msg )
     {
         Toast.makeText( this, msg, Toast.LENGTH_SHORT ).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        //  handler.removeCallbacksAndMessages(null);
+        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+
+        Intent intent = new Intent(getApplicationContext(), mobile.esprit.pim.hexagonerecycle.MainActivity.class);
+        startActivity(intent);
+        finish();;
+
+
     }
 }

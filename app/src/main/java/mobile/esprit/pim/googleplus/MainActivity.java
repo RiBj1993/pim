@@ -18,34 +18,56 @@ package mobile.esprit.pim.googleplus;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
+import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.squareup.leakcanary.LeakCanary;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import mobile.esprit.pim.AsyncTaskClass.GetAllHives;
+import mobile.esprit.pim.Entities.Hive;
 import mobile.esprit.pim.R;
+import mobile.esprit.pim.USER.SessionManager;
 import mobile.esprit.pim.ui.Utils;
 
 public class MainActivity extends ActionBarActivity {
 
     // Bitmaps will only be decoded once and stored in this cache
     public static SparseArray<Bitmap> sPhotoCache = new SparseArray<Bitmap>(4);
+    private Handler handler;
+    private Runnable handlerTask;
+    private TextView tempview, textupdate;
 
+    List<Hive> hives;
+    private Hive hive;
+    int value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maingoogle);
-        getSupportActionBar().setHomeButtonEnabled(false);
+
+        if (LeakCanary.isInAnalyzerProcess(getApplication ())) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+
+            getSupportActionBar().setHomeButtonEnabled(false);
 
         // Used to get the dimensions of the image views to load scaled down bitmaps
         final View parent = findViewById(R.id.parent);
@@ -59,8 +81,28 @@ public class MainActivity extends ActionBarActivity {
                 setImageBitmap((ImageView) findViewById(R.id.card_photo_4).findViewById(R.id.photo), R.drawable.photo4);
             }
         });
+        Bundle b = getIntent().getExtras();
+        value = -1; // or other values
 
-    }
+
+
+        if (b != null)
+            value = b.getInt("key");
+        hive = new Hive();
+
+        tempview = (TextView) findViewById(R.id.tv_cuvvrrent_temp);
+        textupdate = (TextView) findViewById(R.id.tv_last_updated);
+
+        StartTimer()    ;
+
+     return;
+}
+        LeakCanary.install((Application) getApplication ());
+                // Normal app init code...
+
+
+
+                }
 
     @Override
     protected void onResume() {
@@ -97,14 +139,18 @@ public class MainActivity extends ActionBarActivity {
     public void showPhoto(View view) {
         Intent intent = new Intent();
         intent.setClass(this, DetailActivity.class);
+        Bundle b = getIntent().getExtras();
+int value;
+        if (b != null)
+        { value = b.getInt("key");
 
         // Interesting data to pass across are the thumbnail location, the map parameters,
         // the picture title & description, and the key to retrieve the bitmap from the cache
         int resId = 0;
         switch (view.getId()) {
             case R.id.show_photo_1:
-                intent.putExtra("lat", 37.6329946)
-                        .putExtra("lng", -122.4938344)
+                intent.putExtra("lat",mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude())
+                        .putExtra("lng",mobile.esprit.pim.hexagonerecycle.MainActivity.hives.get(value).getLatitude())
                         .putExtra("zoom", 14.0f)
                         .putExtra("title", "Pacifica Pier")
                         .putExtra("description", getResources().getText(R.string.lorem))
@@ -144,7 +190,7 @@ public class MainActivity extends ActionBarActivity {
             startActivityLollipop(view, intent);
         } else {
             startActivityGingerBread(view, intent, resId);
-        }
+        }}
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -181,5 +227,46 @@ public class MainActivity extends ActionBarActivity {
         // activity starts translucent, the clicked view needs to be invisible in order for the
         // animation to look correct.
         ViewPropertyAnimator.animate(findViewById(resId)).alpha(0.0f);
+    }
+    public   void StartTimer(){
+        handler = new Handler();
+
+        handlerTask = new Runnable()
+        {
+            @Override
+            public void run() {
+                AsyncTask gethivesTask = new GetAllHives(getApplicationContext()).execute();
+                System.out.println( "^^^^");
+
+                try {
+                    gethivesTask.get();
+                    hives = GetAllHives.hives;
+                    System.out.println(hives.get(value).getTemperature() );
+                    tempview.setText(hives.get(value).getTemperature() + "°C");
+                    textupdate.setText(hives.get(value).getReference() + "");
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                handler.postDelayed(handlerTask, 1000);
+            }
+
+
+
+
+        };
+        handlerTask.run();
+    }
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        handler.removeCallbacksAndMessages(null);
+        if(SessionManager. mp !=  null ){if(SessionManager. mp.isPlaying()) {SessionManager. mp.stop();}}
+        Intent intent = new Intent(getApplicationContext(), mobile.esprit.pim.hexagonerecycle.MainActivity.class);
+        startActivity(intent);
+
     }
 }
