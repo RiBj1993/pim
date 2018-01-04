@@ -10,6 +10,7 @@ import com.github.florent37.viewanimator.AnimationBuilder;
 import com.github.florent37.viewanimator.ViewAnimator;
 
 import mobile.esprit.pim.R;
+import mobile.esprit.pim.USER.SessionManager;
 
 public class ActivityCart extends AppCompatActivity {
 
@@ -43,5 +44,12 @@ public class ActivityCart extends AppCompatActivity {
         builder = ViewAnimator.animate(img_animation).wave().duration(5000).repeatCount(100000000);
 
         builder.start();
+    }
+    @Override
+    public void onBackPressed() {
+super.onBackPressed();
+        finish();
+        finish();
+
     }
 }
